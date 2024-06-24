@@ -1,8 +1,12 @@
 require 'rubygems'
 require 'sinatra/base'
+require './db'
+
 class HelloApp < Sinatra::Base
   get '/' do
-    'Hello'
+    DB.instance.increment
+    sleep 1 
+    DB.instance.display
   end
 
   get '/hello' do
@@ -10,4 +14,5 @@ class HelloApp < Sinatra::Base
     self
   end
 end
+
 run HelloApp
