@@ -5,7 +5,7 @@
 # @tmp = File.join(@dir,"tmp")
 # Dir.exists?(@tmp) || Dir.mkdir(@tmp)
 
-worker_processes 2
+worker_processes 20
 working_directory @dir
 
 timeout 30

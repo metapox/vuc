@@ -4,9 +4,13 @@ require './db'
 
 class HelloApp < Sinatra::Base
   get '/' do
-    DB.instance.increment
-    sleep 1 
-    DB.instance.display
+    db = DB.instance.connection
+    begin
+      db.run('SELECT 1')
+    rescue
+      return e.message
+    end
+    return 'Hello, world!'
   end
 
   get '/hello' do
