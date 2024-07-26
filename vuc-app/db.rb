@@ -5,7 +5,11 @@ class DB
     include Singleton
     
     def initialize
-        @db ||= Sequel.connect(adapter: :postgres, user: 'root', password: 'password', host: 'pgcat', port: 6432, database: 'db')
+        begin
+            @db ||= Sequel.connect(adapter: :postgres, user: ENV['PG_USER'], password: ENV['PG_PASS'], host: ENV['PG_HOST'], port: ENV['PG_PORT'], database: ENV['PG_DB'])
+        rescue Sequel::DatabaseError => e
+            raise "Database connection error: #{e.message}"
+        end
     end
 
     def connection
